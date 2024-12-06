@@ -13,3 +13,6 @@ cdk.out
 
 inference/openai_config.json*
 *openai_config*
+
+# db
+inference/db

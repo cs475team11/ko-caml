@@ -12,3 +12,4 @@ __pycache__
 cdk.out
 
 inference/openai_config.json*
+*openai_config*

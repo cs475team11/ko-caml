@@ -11,4 +11,8 @@ __pycache__
 .cdk.staging
 cdk.out
 
-inference/openai_config.json
+inference/openai_config.json*
+*openai_config*
+
+# db
+inference/db

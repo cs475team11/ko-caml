@@ -37,18 +37,9 @@ async def api_query(
 ) -> Any:
     try:
         if model in [
-            "gpt-3.5-turbo-0301",
-            "gpt-4-0314",
-            "gpt-3.5-turbo-0613",
-            "gpt-3.5-turbo-16k-0613",
-            "gpt-4-0613",
-            "gpt-4",
-            "gpt-4-32k-0613",
-            "gpt-4-32k",
-            "gpt-3.5-turbo",
-            "gpt-3.5-turbo-16k",
-            "gpt-4-1106-preview",
-            "gpt-4-turbo-2024-04-09"
+            "gpt-4o-2024-11-20",
+            "gpt-4o-mini-2024-07-18",
+            "o1-mini-2024-09-12"
         ]:
             #response = await openai.ChatCompletion.acreate(
             response = await client.chat.completions.create(

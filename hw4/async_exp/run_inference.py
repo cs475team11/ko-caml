@@ -5,57 +5,31 @@ import time
 from tqdm import tqdm
 from string import Template
 from loguru import logger
+from pandas import read_csv
 
 from hw4.utils.file_utils import read_yaml, read_jsonl, append_jsonl, write_yaml
 from hw4.models.openai.async_inference import request_chatgpt
-from hw4.async_exp.exp_utils.prompt_utils import (
-    generate_input_prompt, process_multiple_category_description
-)
-# from hw4.async_exp.exp_utils.schema import ModelResponse
-from hw4.async_exp.exp_utils.args_config import get_multiclass_args
 
-'''
-TODO: english
-'''
-CONFIG = read_yaml('config/config.yaml')
-CATEGORIES = CONFIG['CATEGORIES']
-ENGLISH_CATEGORIES = CONFIG['ENGLISH_CATEGORIES']
-MODEL_PARAMS = CONFIG['MODEL_PARAMS']
+from hw4.async_exp.exp_utils.schema import ModelResponse
+from hw4.async_exp.exp_utils.args_config import get_args
 
-async def inference_single_datum(datum, template, exp_name, input_content, model, model_params, image, categories):
-    input_prompt_format = generate_input_prompt(datum, input_content, image)
-    user_prompt = Template(template).substitute(input=input_prompt_format.strip())
+MODEL_PARAMS = read_yaml('config/config.yaml')
+
+async def inference_single_datum(datum, user_prompt, exp_name, model, model_params):
     t0 = time.time()
-    if 'gpt' in model:
-        _, result, _, usage, _, _ = await request_chatgpt(
-            model=model,
-            system="",
-            user=user_prompt,
-            **model_params,
-        )
+    _, result, _, usage, _, _ = await request_chatgpt(
+        model=model,
+        system="",
+        user=user_prompt,
+        **model_params,
+    )
     inference_time = time.time() - t0
-    # Postprocess
-    predicted_category = None
-    for idx, category_name in enumerate(categories):
-        if category_name in result or str(idx+1) in result:
-            predicted_category = category_name
-            break
-    # Hardwarning
-    #assert predicted_category is not None, f"Cannot find predicted category in {result}"
-    # Softwarning
-    if predicted_category is None:
-        logger.warning(f"Cannot find predicted category in {result}")
-        predicted_category = ""
-
     # Save result as model_response
     model_response = ModelResponse(
         model=model,
         inference_parameters=model_params,
         inference_time=inference_time,
         num_token=usage,
-        rationale="",
-        category=predicted_category,
-        subcategory="",
         raw_output = result,
     )
     datum["inferences"][exp_name] = model_response.model_dump()
@@ -66,35 +40,29 @@ async def inference_single_datum(datum, template, exp_name, input_content, model
     return datum
 
 
-async def main(prompt, model, answer_idx, category_info, subcategory_info, n_shot, n_neg_shot, input_content, random_seed, sampling_method, english, image, extra_name):
+async def main(filename, model="o1-mini-2024-09-12"):
     # Set variables
     model_params = MODEL_PARAMS[model]
     # Experiment name
-    experiment_name = get_multiclass_experimentname(prompt, answer_idx, category_info, subcategory_info, n_shot, n_neg_shot, input_content, random_seed, sampling_method, model, english, image, extra_name)
-    result_dir = Path(__file__).parent / "result_RQ3" / experiment_name # FIXME: Result Path f"result_RQ{N}"
+    experiment_name = "test"
+    result_dir = Path(__file__).parent / "result" / experiment_name
     logger.debug(f"Running experiment: {experiment_name}") #NOTE: experiment_name
 
     # Prompt
     prompts = read_yaml(Path(__file__).parent / "config" /"prompts.yaml")
-    user_template = prompts[prompt]
-
-    # # Fewshot for all data
-    # if n_shot > 0:
-    #     fewshot_prompt = process_fewshot_prompt(n_shot, input_content, image)
-    # else:
-    #     fewshot_prompt = ''
+    user_template = prompts["machine_annotation_prompt"]
 
     # Save condition
     condition = {
-        "model": model,
+        "filename": filename,
         "model_params": MODEL_PARAMS,
     }
     write_yaml(condition, result_dir / "condition.yaml")
     # Data
-    if english:
-        data = read_jsonl(Path(__file__).parents[1] / "data" / "testset" / "final" / "test_english.jsonl")
-    else:
-        data = read_jsonl(Path(__file__).parents[1] / "data" / "testset" / "final" / "test.jsonl")
+    data = read_csv(Path(__file__).parents[1] / "generated_writings" / filename)
+    data = data.iloc[:, 1]
+    # Make id
+    data = [{"id": i, "text": text} for i, text in enumerate(data)]
 
     # Debug
     if DEBUG:
@@ -107,32 +75,13 @@ async def main(prompt, model, answer_idx, category_info, subcategory_info, n_sho
     for datum in tqdm(data):
         if datum["id"] in completed_ids:
             continue
-        # Generate category prompt
-        answer_category = datum["human_labels"]["label_category"]
-        # Random category prompt with answer fixed
-        if answer_idx >=0 :
-            categories = random.sample(CATEGORIES, len(CATEGORIES))
-            cur_answer_idx = categories.index(answer_category)
-            categories[answer_idx], categories[cur_answer_idx] = categories[cur_answer_idx], categories[answer_idx]
-        # Original category sequence
-        else:
-            categories = CATEGORIES
-        # English
-        if english: # FIXME: If english, the sequence of categories is fixed as original order
-            categories = ENGLISH_CATEGORIES
-        category_description_prompt, category_type_prompt = process_multiple_category_description(
-            categories, category_info, subcategory_info, english
-        )
-        fewshot_prompt = ''
         # Generate user prompt
-        cur_user_template = Template(user_template).safe_substitute(
-            category_description=category_description_prompt.strip(), 
-            category_types=category_type_prompt.strip(),
-            examples=fewshot_prompt
+        user_prompt = Template(user_template).safe_substitute(
+            model_input=datum["text"]
         )
         # Run single data
         task = asyncio.create_task(
-            inference_single_datum(datum, cur_user_template, experiment_name, input_content, model, model_params, image, categories)
+            inference_single_datum(datum, user_prompt, experiment_name, model, model_params)
             )
         current_tasks.add(task)
         # Async worker queue
@@ -157,16 +106,9 @@ async def main(prompt, model, answer_idx, category_info, subcategory_info, n_sho
 
 if __name__ == "__main__":
     # Get args
-    args = get_multiclass_args()
-    # Check model
-    assert 'gpt' in args.model
-    # Set random seed
-    random.seed(args.random_seed)
+    args = get_args()
     # Debug
     global DEBUG
     DEBUG = args.debug
 
-    asyncio.run(main(
-        args.model,
-        args.random_seed
-    ))
+    asyncio.run(main(filename="clova_sample_science_results.csv"))

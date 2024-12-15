@@ -16,7 +16,7 @@ from hw4.async_exp.exp_utils.args_config import get_args
 
 MODEL_PARAMS = read_yaml(Path(__file__).parent / 'config/config.yaml')
 
-async def inference_single_datum(datum, user_prompt, exp_name, model, model_params):
+async def inference_single_datum(datum, user_prompt, model, model_params):
     t0 = time.time()
     _, result, _, usage, _, _ = await request_chatgpt(
         model=model,
@@ -33,7 +33,7 @@ async def inference_single_datum(datum, user_prompt, exp_name, model, model_para
         num_token=usage,
         raw_output = result,
     )
-    datum["inferences"][exp_name] = model_response.model_dump()
+    datum["inferences"] = model_response.model_dump()
 
     if DEBUG:
         logger.debug(f"\n{user_prompt}\n------\n{result}\n")
@@ -41,13 +41,12 @@ async def inference_single_datum(datum, user_prompt, exp_name, model, model_para
     return datum
 
 
-async def main(filename, model="o1-mini-2024-09-12"):
+async def main(text_type, filename, model="o1-mini-2024-09-12"):
     # Set variables
     model_params = MODEL_PARAMS[model]
-    # Experiment name
-    experiment_name = "test"
-    result_dir = Path(__file__).parent / "result" / experiment_name
-    logger.debug(f"Running experiment: {experiment_name}") #NOTE: experiment_name
+    input_name = filename.split(".")[0]
+    result_dir = Path(__file__).parent / "result" / text_type / input_name
+    logger.debug(f"Running input: {text_type}/{filename}")
 
     # Prompt
     prompts = read_yaml(Path(__file__).parent / "config" /"prompts.yaml")
@@ -55,13 +54,15 @@ async def main(filename, model="o1-mini-2024-09-12"):
 
     # Save condition
     condition = {
+        "text_type": text_type,
         "filename": filename,
         "inference_time": datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'),
         # "model_params": MODEL_PARAMS,
     }
     write_yaml(condition, result_dir / "condition.yaml")
     # Data
-    data = read_csv(Path(__file__).parents[1] / "generated_writings" / filename)
+    input_path = Path(__file__).parents[1] / "hw4_results" / text_type / filename
+    data = read_csv(input_path)
     data = data.iloc[:, 1]
     # Make id
     data = [{"id": i, "text": text, "inferences": dict()} for i, text in enumerate(data)]
@@ -83,7 +84,7 @@ async def main(filename, model="o1-mini-2024-09-12"):
         )
         # Run single data
         task = asyncio.create_task(
-            inference_single_datum(datum, user_prompt, experiment_name, model, model_params)
+            inference_single_datum(datum, user_prompt, model, model_params)
             )
         current_tasks.add(task)
         # Async worker queue
@@ -113,4 +114,4 @@ if __name__ == "__main__":
     global DEBUG
     DEBUG = args.debug
 
-    asyncio.run(main(filename="clova_sample_science_results.csv"))
+    asyncio.run(main(text_type="science", filename="openai_science_results.csv"))

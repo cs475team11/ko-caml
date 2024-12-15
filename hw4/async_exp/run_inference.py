@@ -41,11 +41,12 @@ async def inference_single_datum(datum, user_prompt, model, model_params):
     return datum
 
 
-async def main(text_type, filename, model="o1-mini-2024-09-12"):
+async def main(text_type, input_model, _filename, model="o1-mini-2024-09-12"):
     # Set variables
     model_params = MODEL_PARAMS[model]
+    filename = input_model + _filename
     input_name = filename.split(".")[0]
-    result_dir = Path(__file__).parent / "result" / text_type / input_name
+    result_dir = Path(__file__).parent / "result" / text_type / input_model / input_name
     logger.debug(f"Running input: {text_type}/{filename}")
 
     # Prompt
@@ -61,9 +62,9 @@ async def main(text_type, filename, model="o1-mini-2024-09-12"):
     }
     write_yaml(condition, result_dir / "condition.yaml")
     # Data
-    input_path = Path(__file__).parents[1] / "hw4_results" / text_type / filename
+    input_path = Path(__file__).parents[1] / "hw4_results" / text_type / input_model / filename
     data = read_csv(input_path)
-    data = data.iloc[:, 1]
+    data = data.iloc[:, 0] # FIXME: Hardcoded column index
     # Make id
     data = [{"id": i, "text": text, "inferences": dict()} for i, text in enumerate(data)]
 
@@ -114,4 +115,4 @@ if __name__ == "__main__":
     global DEBUG
     DEBUG = args.debug
 
-    asyncio.run(main(text_type="science", filename="openai_science_results.csv"))
+    asyncio.run(main(text_type=args.text_type, input_model=args.input_model, _filename=args.filename))

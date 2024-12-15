@@ -23,7 +23,7 @@ async def api_query(
     temperature: float = 0.0,
     seed: int = 42,
     top_p: float = 1.0,
-    max_tokens: int = 512,
+    max_completion_tokens: Optional[int] = None,
     presence_penalty: float = 0.0,
     frequency_penalty: float = 0.0,
     stop: Optional[str] = None,
@@ -45,10 +45,10 @@ async def api_query(
             response = await client.chat.completions.create(
                 model=model,
                 messages=prompt,
-                temperature=temperature,
+                # temperature=temperature,
                 seed=seed,
                 top_p=top_p,
-                max_tokens=max_tokens,
+                max_completion_tokens=max_completion_tokens,
                 presence_penalty=presence_penalty,
                 frequency_penalty=frequency_penalty,
                 n=n,
@@ -59,29 +59,6 @@ async def api_query(
             response = json.loads(response)
             
             return_text = response["choices"][0]["message"]["content"]
-            return_texts += return_text
-            finish_reason = response["choices"][0]["finish_reason"]
-            return_usages += response["usage"]["total_tokens"]
-            return_prompt_usages += response["usage"]["prompt_tokens"]
-            return_completion_usages += response["usage"]["completion_tokens"]
-        elif model in [
-            "text-davinci-003",
-            "text-curie-001",
-            "text-babbage-001",
-            "text-ada-001",
-        ]:
-            response = openai.Completion.create(
-                engine=model,
-                prompt=prompt,
-                temperature=temperature,
-                top_p=top_p,
-                max_tokens=max_tokens,
-                presence_penalty=presence_penalty,
-                frequency_penalty=frequency_penalty,
-                stop=stop,
-                n=n,
-            )
-            return_text = response["choices"][0]["text"]
             return_texts += return_text
             finish_reason = response["choices"][0]["finish_reason"]
             return_usages += response["usage"]["total_tokens"]
@@ -122,7 +99,7 @@ async def api_query(
             prompt,
             temperature=temperature,
             top_p=top_p,
-            max_tokens=max_tokens,
+            max_completion_tokens=max_completion_tokens,
             presence_penalty=presence_penalty,
             frequency_penalty=frequency_penalty,
             stop=stop,
@@ -159,14 +136,14 @@ async def api_query(
             return_completion_usages,
         )
     else:
-        logger.warning("finish_reason is not stop.")
+        logger.warning(f"finish_reason is not stop. finish_reason: {finish_reason}")
         prompt.append({"role": "user", "content": return_text})
         return await api_query(
             model,
             prompt,
             temperature=temperature,
             top_p=top_p,
-            max_tokens=1024,
+            max_completion_tokens=max_completion_tokens,
             presence_penalty=presence_penalty,
             frequency_penalty=frequency_penalty,
             stop=stop,

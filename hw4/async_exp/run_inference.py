@@ -2,6 +2,7 @@ from pathlib import Path
 import random
 import asyncio
 import time
+from datetime import datetime
 from tqdm import tqdm
 from string import Template
 from loguru import logger
@@ -13,7 +14,7 @@ from hw4.models.openai.async_inference import request_chatgpt
 from hw4.async_exp.exp_utils.schema import ModelResponse
 from hw4.async_exp.exp_utils.args_config import get_args
 
-MODEL_PARAMS = read_yaml('config/config.yaml')
+MODEL_PARAMS = read_yaml(Path(__file__).parent / 'config/config.yaml')
 
 async def inference_single_datum(datum, user_prompt, exp_name, model, model_params):
     t0 = time.time()
@@ -21,7 +22,7 @@ async def inference_single_datum(datum, user_prompt, exp_name, model, model_para
         model=model,
         system="",
         user=user_prompt,
-        **model_params,
+        **(model_params or {})
     )
     inference_time = time.time() - t0
     # Save result as model_response
@@ -35,7 +36,7 @@ async def inference_single_datum(datum, user_prompt, exp_name, model, model_para
     datum["inferences"][exp_name] = model_response.model_dump()
 
     if DEBUG:
-        logger.debug(f"\n{user_prompt}{result}\n")
+        logger.debug(f"\n{user_prompt}\n------\n{result}\n")
 
     return datum
 
@@ -55,14 +56,15 @@ async def main(filename, model="o1-mini-2024-09-12"):
     # Save condition
     condition = {
         "filename": filename,
-        "model_params": MODEL_PARAMS,
+        "inference_time": datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'),
+        # "model_params": MODEL_PARAMS,
     }
     write_yaml(condition, result_dir / "condition.yaml")
     # Data
     data = read_csv(Path(__file__).parents[1] / "generated_writings" / filename)
     data = data.iloc[:, 1]
     # Make id
-    data = [{"id": i, "text": text} for i, text in enumerate(data)]
+    data = [{"id": i, "text": text, "inferences": dict()} for i, text in enumerate(data)]
 
     # Debug
     if DEBUG:

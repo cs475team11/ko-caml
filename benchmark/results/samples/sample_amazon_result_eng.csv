@@ -1,0 +1,97 @@
+ProductName,CleanDescription,Best3,Answer
+"PRODUCT_NAME: Nutraj 100% Natural Dried Premium California Walnut Kernels, 500g (2 X 250g) | Pure Without Shell Walnut Kernels | Akhrot ...","The item is a pack of 500g of natural dried walnut kernels from California, consisting of two 250g portions, with no shells included.","HSCode: 80232
+Description: Nuts, edible; walnuts, fresh or dried, shelled
+HSCode: 120230
+Description: Ground-nuts; seed, not roasted or otherwise cooked, whether or not shelled or broken
+HSCode: 110819
+Description: Starch; n.e.c. in item no. 1108.11 to 1108.14","```json
+{
+  ""BestHSCode"": ""80232"",
+  ""BestHSDescription"": ""Nuts, edible; walnuts, fresh or dried, shelled"",
+  ""Justification"": ""The product is specifically a pack of dried walnut kernels, which are shelled and fit the description of HS Code 80232. The other options do not pertain to walnuts or are not specific to dried, shelled nuts.""
+}
+```"
+"PRODUCT_NAME: Cadbury Bournvita 5 Star Magic Health Drink, 750g Pouch","The item is a 750g pouch of Cadbury Bournvita, a health drink that promotes energy and nutrition.","HSCode: 300450
+Description: Medicaments; containing vitamins or their derivatives, for therapeutic or prophylactic use, packaged for retail sale
+HSCode: 300339
+Description: Medicaments; containing hormones (excluding insulin), (but not containing antibiotics), for therapeutic or prophylactic uses, not packaged for retail sale
+HSCode: 220210
+Description: Waters; including mineral and aerated, containing added sugar or other sweetening matter or flavoured","```json
+{
+  ""BestHSCode"": ""300450"",
+  ""BestHSDescription"": ""Medicaments; containing vitamins or their derivatives, for therapeutic or prophylactic use, packaged for retail sale"",
+  ""Justification"": ""Cadbury Bournvita is a health drink that promotes energy and nutrition, which aligns closely with the description of medicaments containing vitamins for therapeutic use. The product's focus on health benefits positions it better under this HS code compared to the others, which either relate to hormones or sugary waters.""
+}
+```"
+PRODUCT_NAME: Sugar Free Green Natural Stevia Jar(200 g),The item is a 200-gram jar of sugar-free green natural stevia.,"HSCode: 170260
+Description: Sugars; fructose, other than chemically pure fructose, and fructose syrup (containing in the dry state more than 50% by weight of fructose), excluding invert sugar
+HSCode: 170230
+Description: Sugars; glucose and glucose syrup, not containing fructose or containing in the dry state less than 20% by weight of fructose, the syrup not containing added flavouring or colouring matter
+HSCode: 170250
+Description: Sugars; fructose, chemically pure, in solid form","```json
+{
+  ""BestHSCode"": ""170260"",
+  ""BestHSDescription"": ""Sugars; fructose, other than chemically pure fructose, and fructose syrup (containing in the dry state more than 50% by weight of fructose), excluding invert sugar"",
+  ""Justification"": ""The product is a sugar-free natural sweetener derived from stevia, which is often associated with fructose. HS Code 170260 pertains to sugars that include fructose, making it the most relevant option for a stevia product, as it is a sugar substitute that falls under the broader category of sweeteners.""
+}
+```"
+"PRODUCT_NAME: Daawat Pulav, Long Grains, Fluffy Basmati for finest Pulav, 1 Kg","The item is a 1 kg package of long grain fluffy basmati rice, suitable for making pulav.","HSCode: 100640
+Description: Cereals; rice, broken
+HSCode: 110819
+Description: Starch; n.e.c. in item no. 1108.11 to 1108.14
+HSCode: 100620
+Description: Cereals; husked (brown) rice","```json
+{
+  ""BestHSCode"": ""100620"",
+  ""BestHSDescription"": ""Cereals; husked (brown) rice"",
+  ""Justification"": ""The product is a 1 kg package of long grain fluffy basmati rice, which fits the description of husked (brown) rice. HS Code 100620 specifically refers to rice in its husked form, making it the most accurate choice for this grocery product. HS Code 100640 refers to broken rice, which does not apply to the described product, and HS Code 110819 pertains to starch, which is unrelated to the rice itself.""
+}
+```"
+PRODUCT_NAME: Tata Tea Gold | Assam teas with Gently Rolled Aromatic Long Leaves | Rich & Aromatic Chai | Black Tea | 500g,"The item is a 500g package of Tata Tea Gold, which contains Assam black tea made from gently rolled aromatic long leaves, designed for a rich and aromatic chai.","HSCode: 210120
+Description: Extracts, essences and concentrates; of tea or mate, and preparations with a basis of these extracts, essences or concentrates or with a basis of tea or mate
+HSCode: 90230
+Description: Tea, black; (fermented) and partly fermented tea, in immediate packings of a content not exceeding 3kg
+HSCode: 90220
+Description: Tea, green; (not fermented), in immediate packings of a content exceeding 3kg","```json
+{
+  ""BestHSCode"": ""90230"",
+  ""BestHSDescription"": ""Tea, black; (fermented) and partly fermented tea, in immediate packings of a content not exceeding 3kg"",
+  ""Justification"": ""The product is a 500g package of Assam black tea, which directly aligns with the description of HS Code 90230. This code specifically covers black tea in immediate packings, making it the most appropriate choice for a product that is exclusively black tea.""
+}
+```"
+"PRODUCT_NAME: Wagh Bakri Premium Leaf Tea, Poly Pack, 500g",The item is a 500g package of premium leaf tea from Wagh Bakri.,"HSCode: 210120
+Description: Extracts, essences and concentrates; of tea or mate, and preparations with a basis of these extracts, essences or concentrates or with a basis of tea or mate
+HSCode: 90220
+Description: Tea, green; (not fermented), in immediate packings of a content exceeding 3kg
+HSCode: 90230
+Description: Tea, black; (fermented) and partly fermented tea, in immediate packings of a content not exceeding 3kg","```json
+{
+  ""BestHSCode"": ""90230"",
+  ""BestHSDescription"": ""Tea, black; (fermented) and partly fermented tea, in immediate packings of a content not exceeding 3kg"",
+  ""Justification"": ""The product is a 500g package of premium leaf tea, which is likely to be black tea, as indicated by its description. The HS Code 90230 specifically covers black tea in immediate packings not exceeding 3kg, making it the most appropriate match. The other codes either refer to extracts or green tea, which do not align with the product description.""
+}
+```"
+"PRODUCT_NAME: Dabur Vedic Tea - 500gm | Handpicked from Assam, Nilgiri & Darjeeling | Soulful Aroma & Rich Taste | 30+ Ayurvedic Herbs |...","The item is a 500 gram pack of Dabur Vedic Tea, which is made from handpicked tea leaves sourced from Assam, Nilgiri, and Darjeeling. It features a soulful aroma and rich taste and includes over 30 Ayurvedic herbs.","HSCode: 210120
+Description: Extracts, essences and concentrates; of tea or mate, and preparations with a basis of these extracts, essences or concentrates or with a basis of tea or mate
+HSCode: 90230
+Description: Tea, black; (fermented) and partly fermented tea, in immediate packings of a content not exceeding 3kg
+HSCode: 90240
+Description: Tea, black; (fermented) and partly fermented tea, in immediate packings of a content exceeding 3kg","```json
+{
+  ""BestHSCode"": ""90230"",
+  ""BestHSDescription"": ""Tea, black; (fermented) and partly fermented tea, in immediate packings of a content not exceeding 3kg"",
+  ""Justification"": ""The product is a 500 gram pack of Dabur Vedic Tea, which fits within the weight limit specified in HS code 90230. This code specifically refers to black tea and captures the essence of the product being a tea blend made from various sourced tea leaves, aligning with the description of immediate packing.""
+}
+```"
+"PRODUCT_NAME: Nescafe Classic Coffee Jar, 200 g with Free Red Mug and Scoop Spoon","The item is a 200 g jar of Nescafe Classic Coffee, which comes with a free red mug and a scoop spoon.","HSCode: 210111
+Description: Extracts, essences and concentrates; of coffee, and preparations with a basis of these extracts, essences or concentrates or with a basis of coffee
+HSCode: 90190
+Description: Coffee; husks and skins, coffee substitutes containing coffee in any proportion
+HSCode: 90122
+Description: Coffee; roasted, decaffeinated","```json
+{
+  ""BestHSCode"": ""210111"",
+  ""BestHSDescription"": ""Extracts, essences and concentrates; of coffee, and preparations with a basis of these extracts, essences or concentrates or with a basis of coffee"",
+  ""Justification"": ""The product is a jar of Nescafe Classic Coffee, which is primarily a coffee preparation. HS Code 210111 specifically covers coffee extracts and preparations, making it the most relevant choice for a product that is essentially a coffee-based preparation rather than just roasted coffee or coffee husks.""
+}
+```"

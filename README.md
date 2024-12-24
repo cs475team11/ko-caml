@@ -1,6 +1,8 @@
 ## Introduction
 This project is based on the [guidance for EIF matching on aws](https://github.com/aws-solutions-library-samples/guidance-for-environmental-impact-factor-mapping-on-aws?tab=readme-ov-file). We replicated the original pipeline provided by AWS and explored the impact of the language and cultural barriers on the performance of EIF matching. 
 
+![alt text](readme_image1.png)
+![alt text](readme_image2.png)
 
 ## Datasets
 ### Benchmark

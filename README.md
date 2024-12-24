@@ -4,31 +4,31 @@ This project is based on the [guidance for EIF matching on aws](https://github.c
 
 ## Datasets
 ### Benchmark
-1. **Model Results** [[folder](__link__)]
+1. **Model Results** [[folder](https://github.com/cs475team11/ko-caml/tree/main/benchmark/results)]
     - Amazon
     - Amazon (Translated to Korean)
     - Coupang
-2. **Annotations** [[folder](__link__)]
+2. **Annotations** [[folder](https://github.com/cs475team11/ko-caml/tree/main/benchmark/gt)]
     - Amazon
     - Coupang
-3. **Evaluation** [[folder](__link__)]
+3. **Evaluation** [[folder](https://github.com/cs475team11/ko-caml/tree/main/benchmark/evaluation)]
     - Amazon
     - Amazon (Translated to Korean)
     - Coupang
 
 ### Input data
-1. **Product Names** [[folder](https://github.com/cs475team11/ko-caml/tree/main/guidance_for_environmental_impact_factor_mapping_on_aws/assets/product_names)]
+1. **Product Names** [[folder](https://github.com/cs475team11/ko-caml/tree/main/inputs/assets/product_names)]
     - Original
-        - Amazon Products Dataset [[data](https://github.com/cs475team11/ko-caml/blob/main/guidance_for_environmental_impact_factor_mapping_on_aws/assets/product_names/amazon_product_names_groceries_eng.csv)] [[source](https://www.kaggle.com/datasets/lokeshparab/amazon-products-dataset?select=All+Grocery+and+Gourmet+Foods.csv)]
-        - Coupang Products Dataset [[data](https://github.com/cs475team11/ko-caml/blob/main/guidance_for_environmental_impact_factor_mapping_on_aws/assets/product_names/coupang_product_names_groceries_v3_kor.csv)]
+        - Amazon Products Dataset [[data](https://github.com/cs475team11/ko-caml/blob/main/inputs/assets/product_names/amazon_product_names_groceries_eng.csv)] [[source](https://www.kaggle.com/datasets/lokeshparab/amazon-products-dataset?select=All+Grocery+and+Gourmet+Foods.csv)]
+        - Coupang Products Dataset [[data](https://github.com/cs475team11/ko-caml/blob/main/inputs/assets/product_names/coupang_product_names_groceries_v3_kor.csv)]
     - Translated
-        - Amazon Products Dataset (Korean) [[data](https://github.com/cs475team11/ko-caml/blob/main/guidance_for_environmental_impact_factor_mapping_on_aws/assets/input/amazon_product_names_groceries_kor.csv)]
-2. **HS Code Dataset** [[folder](https://github.com/cs475team11/ko-caml/tree/main/guidance_for_environmental_impact_factor_mapping_on_aws/assets/datasets)]
+        - Amazon Products Dataset (Korean) [[data](https://github.com/cs475team11/ko-caml/blob/main/inputs/assets/product_names/amazon_product_names_groceries_kor.csv)]
+2. **HS Code Dataset** [[folder](https://github.com/cs475team11/ko-caml/tree/main/inputs/assets/hs_codes)]
     - Original
-        - Global HS Code Dataset [[data](__link__)] [[source](https://unstats.un.org/unsd/classifications/Econ)]
-        - Korean HS Code Dataset [[data](__link__)] [[source](https://www.data.go.kr/data/15049722/fileData.do?recommendDataYn=Y)]
+        - Global HS Code Dataset [[data](https://github.com/cs475team11/ko-caml/blob/main/inputs/assets/hs_codes/Filtered_HSCodeandDescription_eng.csv)] [[source](https://unstats.un.org/unsd/classifications/Econ)]
+        - Korean HS Code Dataset [[data](https://github.com/cs475team11/ko-caml/blob/main/inputs/assets/hs_codes/Korean_HSCode_kor_6digits.csv)] [[source](https://www.data.go.kr/data/15049722/fileData.do?recommendDataYn=Y)]
     - Translated
-        - Global HS Code Dataset (Korean) [[data](__link__)]
+        - Global HS Code Dataset (Korean) [[data](https://github.com/cs475team11/ko-caml/blob/main/inputs/assets/hs_codes/Filtered_HSCodeandDescription_kor.csv)]
 
 ## License
 

@@ -4,9 +4,17 @@ This project is based on the [guidance for EIF matching on aws](https://github.c
 
 ## Datasets
 ### Benchmark
-1. Annotations
-2. Model Results
-3. Evaluation
+1. **Model Results** [[folder](__link__)]
+    - Amazon
+    - Amazon (Translated to Korean)
+    - Coupang
+2. **Annotations** [[folder](__link__)]
+    - Amazon
+    - Coupang
+3. **Evaluation** [[folder](__link__)]
+    - Amazon
+    - Amazon (Translated to Korean)
+    - Coupang
 
 ### Input data
 1. **Product Names** [[folder](https://github.com/cs475team11/ko-caml/tree/main/guidance_for_environmental_impact_factor_mapping_on_aws/assets/product_names)]
@@ -15,13 +23,12 @@ This project is based on the [guidance for EIF matching on aws](https://github.c
         - Coupang Products Dataset [[data](https://github.com/cs475team11/ko-caml/blob/main/guidance_for_environmental_impact_factor_mapping_on_aws/assets/product_names/coupang_product_names_groceries_v3_kor.csv)]
     - Translated
         - Amazon Products Dataset (Korean) [[data](https://github.com/cs475team11/ko-caml/blob/main/guidance_for_environmental_impact_factor_mapping_on_aws/assets/input/amazon_product_names_groceries_kor.csv)]
-        - Coupang Products Dataset (English) [[data](https://github.com/cs475team11/ko-caml/blob/main/guidance_for_environmental_impact_factor_mapping_on_aws/assets/input/coupang_product_names_groceries_v3%20eng.csv)]
 2. **HS Code Dataset** [[folder](https://github.com/cs475team11/ko-caml/tree/main/guidance_for_environmental_impact_factor_mapping_on_aws/assets/datasets)]
     - Original
-        - Global HS Code Dataset: [[source](https://unstats.un.org/unsd/classifications/Econ)]
-        - Korean HS Code Dataset: [[source](https://www.data.go.kr/data/15049722/fileData.do?recommendDataYn=Y)]
+        - Global HS Code Dataset [[data](__link__)] [[source](https://unstats.un.org/unsd/classifications/Econ)]
+        - Korean HS Code Dataset [[data](__link__)] [[source](https://www.data.go.kr/data/15049722/fileData.do?recommendDataYn=Y)]
     - Translated
-        - Global
+        - Global HS Code Dataset (Korean) [[data](__link__)]
 
 ## License
 
